@@ -2,6 +2,24 @@
   "xsappname": "helloworld",
   "tenant-mode": "dedicated",
   "description": "Security profile of the Hello World app",
-  "scopes": [],
-  "role-templates": []
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Display",
+      "description": "Display Hello World"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Viewer",
+      "description": "View Hello World",
+      "scope-references": ["$XSAPPNAME.Display"]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "HelloWorldDisplayRoleCollection",
+      "description": "Display Hello World app",
+      "role-template-references": ["$XSAPPNAME.Viewer"]
+    }
+  ]
 }
