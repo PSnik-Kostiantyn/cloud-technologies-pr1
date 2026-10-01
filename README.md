@@ -16,3 +16,7 @@ cf deploy mta_archives/helloworld_0.0.1.mtar
 ```
 
 The project is built and deployed automatically by SAP Continuous Integration and Delivery on every push to `main`.
+
+## CI/CD
+
+A GitHub webhook triggers the `helloworld-ci` job in SAP Continuous Integration and Delivery, which builds the MTA and deploys it to the `dev` space.
