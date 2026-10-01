@@ -1,0 +1,6 @@
+node_modules/
+dist/
+resources/
+mta_archives/
+.mta/
+*.mtar

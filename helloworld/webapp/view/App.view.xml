@@ -1,0 +1,15 @@
+<mvc:View
+  controllerName="ns.helloworld.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  displayBlock="true">
+  <App id="app">
+    <Page id="page" title="{i18n>title}">
+      <VBox class="sapUiMediumMargin">
+        <Title text="{i18n>greeting}" level="H1" />
+        <Text text="{i18n>description}" class="sapUiSmallMarginTop" />
+        <Button text="{i18n>buttonText}" press=".onSayHello" type="Emphasized" class="sapUiSmallMarginTop" />
+      </VBox>
+    </Page>
+  </App>
+</mvc:View>

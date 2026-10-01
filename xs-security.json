@@ -1,0 +1,7 @@
+{
+  "xsappname": "helloworld",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of the Hello World app",
+  "scopes": [],
+  "role-templates": []
+}

@@ -1,0 +1,89 @@
+_schema-version: "3.2"
+ID: helloworld
+description: Hello World SAPUI5 app for SAP Build Work Zone, standard edition
+version: 0.0.1
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --prefix helloworld
+modules:
+  - name: helloworld-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: helloworld-destination-service
+        parameters:
+          content-target: true
+      - name: helloworld-repo-host
+        parameters:
+          service-key:
+            name: helloworld-repo-host-key
+      - name: helloworld-uaa
+        parameters:
+          service-key:
+            name: helloworld-uaa-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: helloworld_html_repo_host
+              ServiceInstanceName: helloworld-html5-srv
+              ServiceKeyName: helloworld-repo-host-key
+              sap.cloud.service: helloworld
+            - Authentication: OAuth2UserTokenExchange
+              Name: helloworld_uaa
+              ServiceInstanceName: helloworld-xsuaa-srv
+              ServiceKeyName: helloworld-uaa-key
+              sap.cloud.service: helloworld
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
+  - name: helloworld-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: helloworld-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - helloworld.zip
+          name: helloworld-ui
+          target-path: resources/
+  - name: helloworld-ui
+    type: html5
+    path: helloworld
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm run build:cf
+      supported-platforms: []
+resources:
+  - name: helloworld-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+      service: destination
+      service-name: helloworld-destination-service
+      service-plan: lite
+  - name: helloworld-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: helloworld-xsuaa-srv
+      service-plan: application
+  - name: helloworld-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: helloworld-html5-srv
+      service-plan: app-host
