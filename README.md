@@ -20,3 +20,7 @@ The project is built and deployed automatically by SAP Continuous Integration an
 ## CI/CD
 
 A GitHub webhook triggers the `helloworld-ci` job in SAP Continuous Integration and Delivery, which builds the MTA and deploys it to the `dev` space.
+
+## SAP Build Work Zone
+
+The app is published as the "Show Hello World App" tile in the `HelloWorldGroup` group of the HelloWorldSite site in SAP Build Work Zone, standard edition.
